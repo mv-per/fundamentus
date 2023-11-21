@@ -77,7 +77,7 @@ def get_dividend_average(stock: str) -> float:
     return to_float(dividends[0][1].text)
 
 
-def get_fundamentus_data():
+def scrape_stock_data() -> OrderedDict:
     """
     Scrapes financial data for various stocks from the Fundamentus website (http://www.fundamentus.com.br).
 
@@ -203,7 +203,7 @@ def get_data() -> None:
     import pandas as pd
     import numpy as np
 
-    fundamentus_data = get_fundamentus_data()
+    fundamentus_data = scrape_stock_data()
 
     df = pd.DataFrame(fundamentus_data, columns=fundamentus_data.keys())
 
