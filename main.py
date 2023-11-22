@@ -1,9 +1,12 @@
-def main():
-    from src.waitingbar import WaitingBar
-    from src.fundamentus import get_data
+from src.reis import get_reis_data
+from src.waitingbar import WaitingBar
+from src.stocks import get_stocks_data
 
+
+def main():
     progress_bar = WaitingBar("[*] Generating excel...")
-    get_data()
+    get_stocks_data()
+    get_reis_data()
     progress_bar.stop()
 
 
