@@ -1,7 +1,3 @@
-import re
-import urllib.request
-import urllib.parse
-import http.cookiejar
 import requests
 from lxml import html
 
@@ -9,14 +5,17 @@ from lxml import html
 from collections import OrderedDict
 
 
-def get_stocks() -> list[str]:
+def get_stocks_legacy() -> list[str]:
     """
     Loads a list of all stocks currently being negotiated in the b3
+
+    ...deprecated
     """
     url = "https://www.infomoney.com.br/cotacoes/empresas-b3/"
     response = requests.get(url)
 
-    assert response.ok, "Error fetching data from {url}"
+    if not response.ok:
+        print("Error fetching data from {url}")
 
     tree = html.fromstring(response.content)
     links = tree.xpath("//a")
@@ -38,5 +37,19 @@ def get_stocks() -> list[str]:
     return stocks
 
 
-if __name__ == "__main__":
-    print(get_stocks())
+def get_stocks() -> list[str]:
+    """
+    Loads a list of all stocks currently being negotiated in the b3
+    """
+    url = "https://www.dadosdemercado.com.br/bolsa/acoes"
+    response = requests.get(url)
+
+    assert response.ok, "Error fetching data from {url}"
+
+    tree = html.fromstring(response.content)
+    table = tree.xpath('//table[@id="stocks"]')[0]
+    links = table.xpath("//a")
+    links = [link for link in links if "/bolsa/acoes/" in link.get("href")]
+
+    stocks = [link.text for link in links if "\n" not in link.text]
+    return stocks
