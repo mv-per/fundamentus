@@ -22,6 +22,10 @@ The `to_float` function converts a formatted string representing a numeric value
 
 The `get_data` function utilizes the previously mentioned functions to gather financial data, perform valuation calculations, and output the results to an Excel file. It calculates intrinsic values using the Graham formula, safety margins, and Bazin values based on the 12-month average dividend yield.
 
+### `get_reis_data()`
+
+The `get_reis_data` function scrapes Real Estate Investment (REI) data from the web, calculates Gordon values, safety margins, and generates an Excel file with the data and valuations. It uses functions like `get_reis()`, `launch()`, and `handle_response()`.
+
 ## Dependencies
 
 - [Python](https://www.python.org/)
@@ -29,6 +33,7 @@ The `get_data` function utilizes the previously mentioned functions to gather fi
 - [NumPy](https://numpy.org/)
 - [Requests](https://docs.python-requests.org/en/latest/)
 - [Lxml](https://lxml.de/)
+- [Httpx](https://www.python-httpx.org/)
 
 ## Usage
 
